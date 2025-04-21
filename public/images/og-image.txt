@@ -1,0 +1,4 @@
+Image d'aperçu OpenGraph pour le site
+
+Placez ici une image nommée og-image.jpg (1200x630px) pour l'aperçu OpenGraph sur les réseaux sociaux.
+Cette image sera affichée lorsque le site sera partagé sur Facebook, Twitter, etc. 
