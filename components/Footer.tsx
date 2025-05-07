@@ -1,156 +1,197 @@
 "use client";
 
-import Link from 'next/link';
-import { FaWhatsapp, FaInstagram, FaFacebook, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPhone, FaMapMarkerAlt, FaTruck, FaEnvelope, FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
+
   return (
-    <footer className="bg-primary-light dark:bg-gray-800 text-white pt-12 pb-6">
-      <div className="container-section">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-12">
-          <div>
-            <motion.h3 
-              className="text-2xl font-bold mb-4"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Société de Déménagement <br className="sm:hidden" /> Borj Cedria
-            </motion.h3>
-            <p className="text-gray-300 dark:text-gray-300 mb-4 text-sm md:text-base">
-              Votre partenaire de confiance pour tous vos besoins en déménagement à Ben Arous, Tunisie.
-              Nous combinons professionnalisme, efficacité et sécurité.
-            </p>
-            <div className="flex space-x-4 mt-6">
-              <a 
-                href="https://wa.me/21650123456" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white hover:text-accent transition-colors"
-                aria-label="WhatsApp"
+    <footer className="bg-gray-100 dark:bg-gray-800 relative overflow-hidden pt-20 pb-8">
+      {/* Éléments décoratifs */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: "linear-gradient(#00000008 1px, transparent 1px), linear-gradient(90deg, #00000008 1px, transparent 1px)",
+        backgroundSize: "20px 20px"
+      }} />
+      
+      {/* Formes décoratives */}
+      <motion.div
+        className="absolute -right-20 top-0 w-64 h-64 bg-primary/5 dark:bg-primary/10 rounded-full"
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 15, 0],
+          y: [0, 15, 0]
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute -left-20 bottom-0 w-80 h-80 bg-orange-500/5 dark:bg-orange-500/10 rounded-full"
+        animate={{
+          scale: [1, 1.1, 1],
+          rotate: [0, -10, 0],
+          y: [0, -10, 0]
+        }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {/* Colonne 1: À propos */}
+          <motion.div variants={itemVariants} className="mb-8 md:mb-0">
+            <div className="flex items-center mb-6">
+              <motion.div
+                className="mr-3 bg-orange-500 dark:bg-orange-500 text-white p-3 rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)]"
+                whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.1 }}
+                transition={{ duration: 0.5 }}
               >
-                <FaWhatsapp size={20} />
-              </a>
-              <a 
-                href="https://instagram.com/demenagement.borjcedria" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white hover:text-accent transition-colors"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={20} />
-              </a>
-              <a 
-                href="https://facebook.com/demenagement.borjcedria" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white hover:text-accent transition-colors"
-                aria-label="Facebook"
-              >
-                <FaFacebook size={20} />
-              </a>
+                <FaTruck className="h-6 w-6" />
+              </motion.div>
+              <h3 className="text-2xl font-bold text-primary dark:text-white">Jaouadi Transport</h3>
             </div>
-          </div>
-          
-          <div>
-            <h4 className="text-xl font-semibold mb-4">Liens rapides</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link 
-                  href="#services" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base"
-                >
-                  Nos services
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="#about" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base"
-                >
-                  À propos de nous
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="#testimonials" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base"
-                >
-                  Témoignages
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="#contact" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-xl font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center">
-                <FaPhoneAlt className="mr-2 text-accent" />
-                <a 
-                  href="tel:+21650123456" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base"
-                >
-                  +216 50 123 456
-                </a>
-              </li>
-              <li className="flex items-center">
-                <FaEnvelope className="mr-2 text-accent" />
-                <a 
-                  href="mailto:contact@demenagement-borjcedria.tn" 
-                  className="text-gray-300 hover:text-accent transition-colors text-sm md:text-base break-all"
-                >
-                  contact@demenagement-borjcedria.tn
-                </a>
-              </li>
-              <li className="flex items-start">
-                <FaMapMarkerAlt className="mr-2 text-accent mt-1" />
-                <span className="text-gray-300 text-sm md:text-base">
-                  Avenue Principal, Borj Cedria,<br />
-                  Ben Arous, Tunisie
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="border-t border-gray-600 dark:border-gray-700 pt-6 mt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-xs md:text-sm mb-4 md:mb-0">
-              &copy; {currentYear} Société de Déménagement Borj Cedria. Tous droits réservés.
+            <p className="mb-6 text-gray-600 dark:text-gray-300">
+              Société de déménagement professionnelle en Tunisie. Nous combinons professionnalisme, 
+              efficacité et sécurité pour un déménagement sans stress.
             </p>
-            
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm text-gray-400">
-              <Link 
-                href="/mentions-legales" 
-                className="hover:text-accent transition-colors"
+            <div className="space-y-3">
+              <motion.div 
+                className="flex items-center text-gray-600 dark:text-gray-300"
+                whileHover={{ x: 5 }}
               >
-                Mentions légales
-              </Link>
-              <Link 
-                href="/politique-confidentialite" 
-                className="hover:text-accent transition-colors"
+                <div className="bg-white dark:bg-gray-700 p-2 rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] mr-3">
+                  <FaPhone className="h-4 w-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <span>51 722 115</span>
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-gray-600 dark:text-gray-300"
+                whileHover={{ x: 5 }}
               >
-                Confidentialité
-              </Link>
+                <div className="bg-white dark:bg-gray-700 p-2 rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] mr-3">
+                  <FaMapMarkerAlt className="h-4 w-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <span>Charguia 1, 2035, Tunis</span>
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-gray-600 dark:text-gray-300"
+                whileHover={{ x: 5 }}
+              >
+                <div className="bg-white dark:bg-gray-700 p-2 rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] mr-3">
+                  <FaEnvelope className="h-4 w-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <span>contact@jaouadi-transport.com</span>
+              </motion.div>
             </div>
-          </div>
-          
-          <div className="text-center mt-6 text-xs md:text-sm text-gray-500 dark:text-gray-500">
-            Powered by <span className="text-accent font-medium">FiXmyAiM</span>
-          </div>
+          </motion.div>
+
+          {/* Colonne 2: Heures d'ouverture */}
+          <motion.div variants={itemVariants} className="mb-8 md:mb-0">
+            <h3 className="text-xl font-bold mb-6 text-primary dark:text-white border-b-2 border-orange-500/30 dark:border-orange-500/30 pb-2 inline-block">
+              Heures d'ouverture
+            </h3>
+            <div className="space-y-3 text-gray-600 dark:text-gray-300">
+              <div className="flex justify-between">
+                <span>Lundi - Vendredi:</span>
+                <span>08:00 - 18:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Samedi:</span>
+                <span>09:00 - 16:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Dimanche:</span>
+                <span>Fermé</span>
+              </div>
+              <div className="mt-8 p-4 bg-white dark:bg-gray-700 rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] transform rotate-[-1deg]">
+                <p className="font-semibold text-orange-500 dark:text-orange-400 text-center">
+                  Service d'urgence disponible 24/7
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Colonne 3: Médias sociaux */}
+          <motion.div variants={itemVariants}>
+            <h3 className="text-xl font-bold mb-6 text-primary dark:text-white border-b-2 border-orange-500/30 dark:border-orange-500/30 pb-2 inline-block">
+              Suivez-nous
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <motion.a
+                href="#"
+                className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] transform hover:scale-105 hover:rotate-2 transition-all"
+                whileHover={{ y: -5 }}
+              >
+                <FaFacebook className="h-6 w-6 mr-3 text-blue-600" />
+                <span className="text-gray-700 dark:text-gray-200">Facebook</span>
+              </motion.a>
+              <motion.a
+                href="#"
+                className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] transform hover:scale-105 hover:rotate-2 transition-all"
+                whileHover={{ y: -5 }}
+              >
+                <FaInstagram className="h-6 w-6 mr-3 text-pink-600" />
+                <span className="text-gray-700 dark:text-gray-200">Instagram</span>
+              </motion.a>
+              <motion.a
+                href="#"
+                className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] transform hover:scale-105 hover:rotate-2 transition-all"
+                whileHover={{ y: -5 }}
+              >
+                <FaTwitter className="h-6 w-6 mr-3 text-blue-400" />
+                <span className="text-gray-700 dark:text-gray-200">Twitter</span>
+              </motion.a>
+              <motion.a
+                href="#"
+                className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] transform hover:scale-105 hover:rotate-2 transition-all"
+                whileHover={{ y: -5 }}
+              >
+                <FaLinkedin className="h-6 w-6 mr-3 text-blue-700" />
+                <span className="text-gray-700 dark:text-gray-200">LinkedIn</span>
+              </motion.a>
+            </div>
+            <div className="mt-8 p-4 bg-orange-500/10 dark:bg-orange-500/20 rounded-lg">
+              <p className="text-center text-gray-700 dark:text-gray-200">
+                Recevez un devis gratuit en nous appelant au 
+                <span className="font-bold text-orange-500 dark:text-orange-400 block mt-1">51 722 115</span>
+              </p>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Ligne de séparation */}
+        <motion.div 
+          className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-8"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        />
+
+        {/* Copyright */}
+        <div className="text-center text-gray-600 dark:text-gray-400 text-sm">
+          <p>© {currentYear} Jaouadi Transport. Tous droits réservés.</p>
+          <p className="mt-2">Powered by <a href="https://www.instagram.com/fixmyaim" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline font-medium">FiXmyAiM</a></p>
         </div>
       </div>
     </footer>

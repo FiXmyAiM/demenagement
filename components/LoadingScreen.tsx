@@ -107,7 +107,7 @@ const LoadingScreen = ({ minLoadingTime = 1500 }: LoadingScreenProps) => {
         className="text-3xl font-bold text-primary dark:text-white mb-3"
         variants={textVariants}
       >
-        Déménagement <span className="text-accent">Borj Cedria</span>
+        Déménagement <span className="text-accent">Jaouadi Transport</span>
       </motion.h1>
       
       <motion.p 

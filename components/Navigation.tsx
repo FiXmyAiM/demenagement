@@ -3,199 +3,170 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaPhone, FaTimes, FaBars } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from './ThemeContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const { isDarkMode } = useTheme();
 
-  const navLinks = [
-    { name: 'Accueil', href: '#' },
-    { name: 'Services', href: '#services' },
-    { name: 'À propos', href: '#about' },
-    { name: 'Témoignages', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled(offset > 50);
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        setIsOpen(false);
-      }
+      setScrollPosition(window.scrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleToggle = () => setIsOpen(!isOpen);
+  const isScrolled = scrollPosition > 10;
 
-  const handleLinkClick = () => {
-    if (isOpen) setIsOpen(false);
+  const navLinks = [
+    { name: "Accueil", href: "#" },
+    { name: "Services", href: "#services" },
+    { name: "Témoignages", href: "#testimonials" },
+    { name: "Contact", href: "#contact" },
+  ];
+
+  const handlePhoneClick = () => {
+    const phoneNumber = "51722115";
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+      window.location.href = `tel:${phoneNumber}`;
+    } else {
+      navigator.clipboard.writeText(phoneNumber);
+      alert("Numéro de téléphone copié : 51 722 115");
+    }
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-2 bg-white dark:bg-gray-900 shadow-md backdrop-blur-md bg-opacity-80 dark:bg-opacity-80' : 'py-4 bg-transparent'}`}>
-      <nav className="container-section flex items-center justify-between">
-        {/* Logo */}
-        <Link href="#" className="flex items-center">
-          <motion.span 
-            className={`text-xl md:text-2xl font-bold ${scrolled ? 'text-primary dark:text-white' : 'text-white'}`}
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            className="relative z-10"
           >
-            Déménagement
-            <span className="text-accent"> Borj Cedria</span>
-          </motion.span>
-        </Link>
-
-        {/* Navigation pour Desktop */}
-        <div className="hidden md:flex items-center gap-8">
-          <ul className="flex gap-6">
-            {navLinks.map((link) => (
-              <motion.li 
-                key={link.name}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: navLinks.indexOf(link) * 0.1 }}
-              >
-                <Link 
-                  href={link.href}
-                  className={`relative font-medium text-sm ${
-                    scrolled ? 'text-gray-700 dark:text-gray-300' : 'text-white'
-                  } hover:text-accent dark:hover:text-accent transition-colors`}
-                  onClick={handleLinkClick}
-                  tabIndex={0}
-                  aria-label={link.name}
+            <Link href="/">
+              <span className="text-2xl font-bold text-primary dark:text-white flex items-center">
+                <svg 
+                  className="w-8 h-8 mr-2 text-orange-500" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20" 
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <span className="relative">
-                    {link.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </Link>
-              </motion.li>
-            ))}
-          </ul>
-          
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <Link 
-              href="#contact" 
-              className="btn-accent transform transition-transform hover:translate-y-[-3px] hover:shadow-lg"
-              tabIndex={0}
-              aria-label="Demander un devis"
-            >
-              Devis Gratuit
+                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.5a2.5 2.5 0 014.9 0H20a1 1 0 001-1V5a1 1 0 00-1-1H3z" />
+                </svg>
+                <span className={`${isScrolled ? 'text-primary dark:text-white' : 'text-white dark:text-white'}`}>
+                  Jaouadi Transport
+                </span>
+              </span>
             </Link>
           </motion.div>
 
-          {/* Theme Toggle */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="ml-2"
-          >
-            <ThemeToggle />
-          </motion.div>
-        </div>
-
-        {/* Hamburger Menu pour Mobile */}
-        <div className="flex items-center gap-4 md:hidden">
-          <div className="z-50">
-            <ThemeToggle />
-          </div>
-          <button
-            onClick={handleToggle}
-            className={`z-50 text-2xl focus:outline-none transition-colors ${
-              isOpen 
-                ? 'text-white' 
-                : scrolled 
-                  ? 'text-gray-800 dark:text-white' 
-                  : 'text-white'
-            }`}
-            aria-label="Toggle navigation menu"
-          >
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "100vh" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-primary dark:bg-gray-900 z-40 flex items-center justify-center"
-            >
-              <motion.ul
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
-                className="flex flex-col items-center gap-6 text-white"
-              >
-                {navLinks.map((link, index) => (
-                  <motion.li
-                    key={link.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 + 0.1 }}
-                    className="text-xl font-medium"
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-1">
+            <ul className="flex space-x-6 mr-8">
+              {navLinks.map((link) => (
+                <motion.li 
+                  key={link.name}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <Link 
+                    href={link.href}
+                    className={`font-medium text-sm hover:text-orange-500 transition-colors relative group ${
+                      isScrolled ? 'text-gray-700 dark:text-gray-200' : 'text-white dark:text-gray-200'
+                    }`}
                   >
-                    <Link
+                    {link.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex items-center space-x-4"
+            >
+              <ThemeToggle />
+              
+              <button
+                onClick={handlePhoneClick}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-full flex items-center transition-all duration-300 hover:scale-105 shadow-md"
+              >
+                <FaPhone className="w-3 h-3 mr-2" />
+                <span>51 722 115</span>
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Mobile Navigation Toggle */}
+          <div className="flex items-center space-x-3 md:hidden">
+            <ThemeToggle />
+            <button 
+              className={`p-2 rounded-md focus:outline-none ${
+                isScrolled ? 'text-gray-700 dark:text-gray-200' : 'text-white dark:text-gray-200'
+              }`}
+              onClick={toggleMenu}
+            >
+              {isOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden bg-white dark:bg-gray-900 shadow-lg"
+          >
+            <div className="container mx-auto px-4 py-3">
+              <ul className="space-y-2">
+                {navLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link 
                       href={link.href}
-                      onClick={handleLinkClick}
-                      className="hover:text-accent transition-colors"
-                      tabIndex={0}
-                      aria-label={link.name}
+                      className="block py-2 px-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                      onClick={() => setIsOpen(false)}
                     >
                       {link.name}
                     </Link>
-                  </motion.li>
+                  </li>
                 ))}
-                
-                <motion.li
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                  className="mt-6"
-                >
-                  <Link
-                    href="#contact"
-                    onClick={handleLinkClick}
-                    className="btn-accent"
-                    tabIndex={0}
-                    aria-label="Demander un devis"
+                <li className="py-2">
+                  <button
+                    onClick={handlePhoneClick}
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-3 px-4 rounded-md flex items-center justify-center transition-all duration-300"
                   >
-                    Devis Gratuit
-                  </Link>
-                </motion.li>
-              </motion.ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-    </header>
+                    <FaPhone className="w-4 h-4 mr-2" />
+                    <span>Appelez-nous : 51 722 115</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 };
 
