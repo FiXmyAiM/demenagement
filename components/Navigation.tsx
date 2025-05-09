@@ -57,15 +57,7 @@ const Navigation = () => {
           >
             <Link href="/">
               <span className="text-2xl font-bold text-primary dark:text-white flex items-center">
-                <svg 
-                  className="w-8 h-8 mr-2 text-orange-500" 
-                  fill="currentColor" 
-                  viewBox="0 0 20 20" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.5a2.5 2.5 0 014.9 0H20a1 1 0 001-1V5a1 1 0 00-1-1H3z" />
-                </svg>
+                
                 <span className={`${isScrolled ? 'text-primary dark:text-white' : 'text-white dark:text-white'}`}>
                   Jaouadi Transport
                 </span>

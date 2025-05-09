@@ -40,7 +40,7 @@ const SocialIcons = ({
       animate={animation ? "show" : undefined}
     >
       <motion.a 
-        href="https://wa.me/21650123456" 
+        href="https://wa.me/message/ICV6RSETLKZYA1" 
         target="_blank" 
         rel="noopener noreferrer"
         className="social-icon bg-[#25D366] text-white"
@@ -64,7 +64,7 @@ const SocialIcons = ({
         <FaInstagram size={iconSize} />
       </motion.a>
       <motion.a 
-        href="https://facebook.com/demenagement.borjcedria" 
+        href="https://www.facebook.com/Jaouadi.Transport" 
         target="_blank" 
         rel="noopener noreferrer"
         className="social-icon bg-[#1877F2] text-white"

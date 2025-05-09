@@ -49,11 +49,11 @@ const Hero = () => {
 
   // Liste de mots pour l'animation FlipWords
   const flipWords = [
-    "déménagement résidentiel",
-    "déménagement commercial",
-    "emballage et déballage",
-    "transport d'électroménagers",
-    "déménagement longue distance"
+    "Déménagement résidentiel",
+    "Déménagement commercial",
+    "Emballage et déballage",
+    "Transport d'électroménagers",
+    "Déménagement longue distance"
   ];
 
   return (
@@ -130,7 +130,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="mt-2 flex flex-col sm:flex-row justify-center items-center text-2xl sm:text-3xl md:text-4xl">
+          <div className="mt-2 flex flex-col  justify-center items-center text-2xl sm:text-3xl md:text-4xl">
             <span className="mb-2 sm:mb-0 sm:mr-2">Experts en</span>
             <div className="relative inline-block">
               <FlipWords 
